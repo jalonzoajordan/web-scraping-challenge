@@ -1,6 +1,5 @@
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
-import time
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 
@@ -61,13 +60,13 @@ def scrape():
     soup = bs(html, "html.parser")
 
     #get all of the image sources
-    hemImage_sources = soup.findAll('a',{'class':'itemLink'})
+    hemImage_sources = soup.findAll('img',{'class':'thumb'})
 
     image_url_list = []
     for image in hemImage_sources:
-        image_string = image['href']
+        image_string = image['src']
         image_dict = {"title": f'{image_string[:-5]} Hemisphere',
-                    "img_url": url_hemImages + image['href']}
+                    "img_url": url_hemImages + image['src']}
         if image_dict not in image_url_list:
             image_url_list.append(image_dict)
     
